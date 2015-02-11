@@ -7,7 +7,11 @@ public class microp {
 	public static void main(String[] args){
 
 		Scanner console = new Scanner(System.in);
-		String[] whole = console.nextLine().split("");
+		char[] w = console.nextLine().toCharArray();
+		String[] whole = new String[w.length];
+		for(int i = 0; i < w.length; i++){
+			whole[i] = String.valueOf(w[i]);
+		}
 		String word;
 		String hi;
 		String lo;
@@ -17,8 +21,14 @@ public class microp {
 		int ct = 0;
 
 		do{
-			word = whole[ct];
-			ct++;
+			if((whole[ct].equals(6) && regA.equals(0))|| whole[ct].equals(7)){
+				word = whole[ct];
+			}
+			else{
+				word = whole[ct];
+				ct++;
+			}
+			
 
 			switch(word){
 			case "0":{
@@ -45,28 +55,19 @@ public class microp {
 				regB = temp.toUpperCase();
 				break;
 			}
-			case "3":{
-				/*int A =  Integer.parseInt(regA, 16);
-				int B =  Integer.parseInt(regB, 16);
-				int sum = A + B;
-				String hex = Integer.toHexString(sum);
-				hex = hex.toUpperCase();
-				if (hex.length() == 1) {
-					hex = "0" + hex;
-				}
-				regB = String.valueOf(hex.charAt(0));
-
-				regA = String.valueOf(hex.charAt(1));
-				ct++;*/
-				
+			case "3":{				
 				int sumDec = Integer.parseInt(regA, 16); 
 				if(!regB.equals("")){
 					sumDec+=Integer.parseInt(regB, 16);
 				}
 				String sumHex = Integer.toHexString(sumDec);
-				regB = String.valueOf(sumHex.charAt(0)).toUpperCase();
 				if(sumHex.length() > 1){
 					regA = String.valueOf(sumHex.charAt(1)).toUpperCase();
+					regB = String.valueOf(sumHex.charAt(0)).toUpperCase();
+				}
+				else{
+					regA = String.valueOf(sumHex.charAt(0)).toUpperCase();
+					regB = "0";
 				}
 				break;
 			}
@@ -99,6 +100,7 @@ public class microp {
 					lo = whole[ct];
 					ct++;
 					loc = Integer.parseInt(hi+lo,16);
+					ct = loc;
 				}
 				else{
 					loc+=3;
@@ -111,6 +113,7 @@ public class microp {
 				lo = whole[ct];
 				ct++;
 				loc = Integer.parseInt(hi+lo,16);
+				ct = loc;
 				break;
 			}
 			case "8":{
@@ -122,9 +125,6 @@ public class microp {
 			}
 			}
 		}while(true);
-
-
-
 
 	}
 
